@@ -1,11 +1,4 @@
-﻿# --------------------------------------------------
-# СТИЛЬ ДИАЛОГОВ
-# --------------------------------------------------
-
-define gui.dialogue_box_color = "#000000"
-define gui.name_text_color = "#ffffff"
-define gui.text_color = "#ffffff"
-
+﻿
 # --------------------------------------------------
 # ПЕРЕМЕННЫЕ
 # --------------------------------------------------
@@ -24,7 +17,6 @@ default heroine_list = [
 
 default heroine_index = 0
 
-
 # Внешность в куртке
 default heroine_jacket = "R2.png"
 
@@ -34,7 +26,6 @@ default heroine_jacket_list = [
     "A2.png",
     "N2.png"
 ]
-
 
 # Внешность для сцены с полицией
 default heroine_police = "R3.png"
@@ -46,7 +37,6 @@ default heroine_police_list = [
     "N3.png"
 ]
 
-
 # Отношения
 default igor_relationship = 0
 default zhenya_relationship = 0
@@ -56,21 +46,21 @@ default zhenya_relationship = 0
 # ПЕРСОНАЖИ
 # --------------------------------------------------
 
-define e = Character("[player_name]", color="#c8ffc8")
+define e = Character("[player_name]", color="#FFF2A6")
 
-define guard = Character("Охранник", color="#ffffff")
+define guard = Character("Охранник", color="#FFFFFF")
 
-define stranger1 = Character("Незнакомка", color="#ffffff")
-define stranger2 = Character("Незнакомец", color="#ffffff")
-define stranger3 = Character("Незнакомка", color="#ffffff")
-define stranger4 = Character("Незнакомец", color="#ffffff")
-define stranger5 = Character("Незнакомец", color="#ffffff")
+define stranger1 = Character("Незнакомка", color="#FFFFFF")
+define stranger2 = Character("Незнакомец", color="#FFFFFF")
+define stranger3 = Character("Незнакомка", color="#FFFFFF")
+define stranger4 = Character("Незнакомец", color="#FFFFFF")
+define stranger5 = Character("Незнакомец", color="#FFFFFF")
 
-define vika = Character("Вика", color="#ffffff")
-define igor = Character("Игорь", color="#ffffff")
-define zhenya = Character("Женя", color="#ffffff")
-define maks = Character("Макс", color="#ffffff")
-define yasha = Character("Яша", color="#ffffff")
+define vika = Character("Вика", color="#FFFFFF")
+define igor = Character("Игорь", color="#FFFFFF")
+define zhenya = Character("Женя", color="#FFFFFF")
+define maks = Character("Макс", color="#FFFFFF")
+define yasha = Character("Яша", color="#FFFFFF")
 
 
 # --------------------------------------------------
@@ -91,7 +81,7 @@ screen intro_screen():
             yalign 0.5
             xmaximum 370
             text_align 0.5
-            color "#ffffff"
+            color "#FFFFFF"
             size 20
 
     textbutton "Продолжить":
@@ -113,44 +103,87 @@ screen heroine_choice():
 
     text "Выбери себе внешность":
         xalign 0.5
-        ypos 30
+        ypos 80
         size 28
+        color "#FFFFFF"
+        text_align 0.5
 
     add "images/" + heroine_list[heroine_index]:
         xalign 0.5
         yalign 0.5
 
-    textbutton "←":
+    # Левая стрелка
+    textbutton "‹":
         xpos 20
         yalign 0.5
-        text_size 50
+
+        text_size 64
+        text_color "#FFFFFF"
+        text_hover_color "#E8DDF2"
+        text_outlines [(2, "#00000080", 0, 2)]
+
+        background None
+        hover_background None
+        insensitive_background None
+
         action SetVariable(
             "heroine_index",
             (heroine_index - 1) % len(heroine_list)
         )
 
-    textbutton "→":
+    # Правая стрелка
+    textbutton "›":
         xpos 365
         yalign 0.5
-        text_size 50
+
+        text_size 64
+        text_color "#FFFFFF"
+        text_hover_color "#E8DDF2"
+        text_outlines [(2, "#00000080", 0, 2)]
+
+        background None
+        hover_background None
+        insensitive_background None
+
         action SetVariable(
             "heroine_index",
             (heroine_index + 1) % len(heroine_list)
         )
 
-    textbutton "Выбрать":
+    # Продолжить
+    textbutton "Продолжить":
         xalign 0.5
-        ypos 740
-        text_size 28
-        action [
-            SetVariable("heroine", heroine_list[heroine_index]),
-            Return()
-        ]
+        yalign 0.9
 
+        text_size 28
+        text_color "#FFFFFF"
+        text_hover_color "#E8DDF2"
+        text_outlines [(2, "#00000080", 0, 2)]
+
+        background None
+        hover_background None
+        insensitive_background None
+
+        action Return()
 
 # --------------------------------------------------
 # ВЫБОР ИМЕНИ
 # --------------------------------------------------
+
+
+
+style heroine_choice_text:
+    color "#FFFFFF"
+    size 28
+    outlines [(2, "#00000080", 0, 2)]
+
+
+style heroine_choice_button_text:
+    color "#FFFFFF"
+    hover_color "#E8DDF2"
+    size 28
+    outlines [(2, "#00000080", 0, 2)]
+
 
 screen name_choice():
 
@@ -165,7 +198,7 @@ screen name_choice():
     text "Выбери себе имя":
         xalign 0.5
         ypos 250
-        size 28
+        style "heroine_choice_text"
 
     input:
         value VariableInputValue("player_name")
@@ -178,8 +211,26 @@ screen name_choice():
     textbutton "Продолжить":
         xalign 0.5
         ypos 420
-        text_size 28
+
+        style "heroine_choice_button"
+
         action Return()
+
+
+style heroine_choice_button:
+    background None
+    hover_background None
+    padding (0, 0)
+
+style heroine_choice_button_text:
+    color "#FFFFFF"
+    hover_color "#E8DDF2"
+    size 28
+    outlines [(2, "#00000080", 0, 2)]
+
+
+
+
 
 
 # --------------------------------------------------
@@ -249,6 +300,7 @@ label start:
     show image "images/" + heroine_jacket
 
     e "?"
+
 
     # --------------------------------------------------
     # ВИКА
@@ -617,3 +669,4 @@ label start:
 
 
     return
+

@@ -33,7 +33,7 @@ define gui.muted_color = '#6666a3'
 define gui.hover_muted_color = '#9999c1'
 
 
-## ТЕКСТ ДИАЛОГОВ ##############################################################
+## Текст диалогов ##############################################################
 
 # Обычный текст диалога — белый.
 define gui.text_color = '#FFFFFF'
@@ -58,7 +58,8 @@ define gui.interface_text_font = "DejaVuSans-Bold.ttf"
 
 define gui.text_size = 20
 
-define gui.name_text_size = 38
+# Размер имени по умолчанию.
+define gui.name_text_size = 32
 
 define gui.interface_text_size = 33
 
@@ -90,25 +91,17 @@ define gui.textbox_yalign = 1.0
 
 ## ЧЁРНОЕ ПОЛУПРОЗРАЧНОЕ ОКНО ###############################################
 
-# AA = примерно 67% непрозрачности.
-# 00 = полностью прозрачный.
-# FF = полностью непрозрачный.
-#
-# Поэтому #000000AA — чёрный полупрозрачный фон.
-
+# #000000AA = чёрный с прозрачностью.
 define gui.textbox_background = Solid("#000000AA")
 
 
 ## Имя персонажа ###############################################################
 
-# Позиция имени.
 define gui.name_xpos = 30
 define gui.name_ypos = 0
 
-# Выравнивание имени.
 define gui.name_xalign = 0.0
 
-# Размер окна имени.
 define gui.namebox_width = None
 define gui.namebox_height = None
 
@@ -136,20 +129,20 @@ init python:
     # Главное окно диалога.
     style.say_window.background = Solid("#000000AA")
 
-    # Имя говорящего.
+    # Имя говорящего — бледно-жёлтое.
     style.say_label.color = "#FFF2A6"
 
     # Текст диалога.
     style.say_dialogue.color = "#FFFFFF"
 
-    # Жирный художественный шрифт.
+    # Жирный шрифт.
     style.say_label.font = "DejaVuSans-Bold.ttf"
     style.say_dialogue.font = "DejaVuSans-Bold.ttf"
 
-    # Размер имени.
-    style.say_label.size = 45
+    # Уменьшенное имя персонажа.
+    style.say_label.size = 32
 
-    # Размер текста.
+    # Размер обычного текста.
     style.say_dialogue.size = 22
 
 
@@ -309,11 +302,9 @@ define gui.scrollbar_size = 18
 
 define gui.slider_size = 38
 
-
 define gui.bar_tile = False
 define gui.scrollbar_tile = False
 define gui.slider_tile = False
-
 
 define gui.bar_borders = Borders(6, 6, 6, 6)
 
@@ -321,13 +312,11 @@ define gui.scrollbar_borders = Borders(6, 6, 6, 6)
 
 define gui.slider_borders = Borders(6, 6, 6, 6)
 
-
 define gui.vbar_borders = Borders(6, 6, 6, 6)
 
 define gui.vscrollbar_borders = Borders(6, 6, 6, 6)
 
 define gui.vslider_borders = Borders(6, 6, 6, 6)
-
 
 define gui.unscrollable = "hide"
 
@@ -342,7 +331,6 @@ define gui.history_height = 210
 
 define gui.history_spacing = 0
 
-
 define gui.history_name_xpos = 233
 
 define gui.history_name_ypos = 0
@@ -350,7 +338,6 @@ define gui.history_name_ypos = 0
 define gui.history_name_width = 233
 
 define gui.history_name_xalign = 1.0
-
 
 define gui.history_text_xpos = 255
 
@@ -373,7 +360,6 @@ define gui.nvl_height = 173
 
 define gui.nvl_spacing = 15
 
-
 define gui.nvl_name_xpos = 645
 
 define gui.nvl_name_ypos = 0
@@ -381,7 +367,6 @@ define gui.nvl_name_ypos = 0
 define gui.nvl_name_width = 225
 
 define gui.nvl_name_xalign = 1.0
-
 
 define gui.nvl_text_xpos = 675
 
@@ -391,7 +376,6 @@ define gui.nvl_text_width = 885
 
 define gui.nvl_text_xalign = 0.0
 
-
 define gui.nvl_thought_xpos = 360
 
 define gui.nvl_thought_ypos = 0
@@ -399,7 +383,6 @@ define gui.nvl_thought_ypos = 0
 define gui.nvl_thought_width = 1170
 
 define gui.nvl_thought_xalign = 0.0
-
 
 define gui.nvl_button_xpos = 675
 
@@ -428,10 +411,15 @@ init python:
     @gui.variant
     def small():
 
-        ## Размеры шрифтов.
+        ########################################################################
+        ## Размеры шрифтов
+        ########################################################################
+
+        # Основной текст.
         gui.text_size = 45
 
-        gui.name_text_size = 54
+        # Имена персонажей — уменьшены.
+        gui.name_text_size = 34
 
         gui.notify_text_size = 38
 
@@ -442,49 +430,90 @@ init python:
         gui.label_text_size = 51
 
 
-        ## Текстовое окно.
+        ########################################################################
+        ## Текстовое окно
+        ########################################################################
+
         gui.textbox_height = 360
 
-        gui.name_xpos = 120
 
-        gui.dialogue_xpos = 135
+        ########################################################################
+        ## Имя персонажа
+        ########################################################################
 
-        gui.dialogue_width = 370
+        # Было 120 — из-за этого имя могло выглядеть
+        # слишком сильно сдвинутым вправо.
+        gui.name_xpos = 35
+        gui.name_ypos = 0
 
 
-        ## Ползунки.
+        ########################################################################
+        ## Диалоговый текст
+        ########################################################################
+
+        # Было 135 — возвращаем текст ближе к левому краю.
+        gui.dialogue_xpos = 35
+
+        gui.dialogue_ypos = 75
+
+        # Оставляем нормальные поля по краям экрана.
+        gui.dialogue_width = 354
+
+
+        ########################################################################
+        ## Ползунки
+        ########################################################################
+
         gui.slider_size = 54
 
 
-        ## Кнопки выбора.
+        ########################################################################
+        ## Кнопки выбора
+        ########################################################################
+
         gui.choice_button_width = 1860
 
         gui.choice_button_text_size = 45
 
 
-        ## Интервалы.
+        ########################################################################
+        ## Интервалы
+        ########################################################################
+
         gui.navigation_spacing = 30
 
         gui.pref_button_spacing = 15
 
 
-        ## История.
+        ########################################################################
+        ## История
+        ########################################################################
+
         gui.history_height = 285
 
         gui.history_text_width = 1035
 
 
-        ## Быстрые кнопки.
+        ########################################################################
+        ## Быстрые кнопки
+        ########################################################################
+
         gui.quick_button_text_size = 30
 
 
-        ## Слоты.
+        ########################################################################
+        ## Слоты
+        ########################################################################
+
         gui.file_slot_cols = 2
 
         gui.file_slot_rows = 2
 
 
-        ## NVL.
+        ########################################################################
+        ## NVL
+        ########################################################################
+
         gui.nvl_height = 255
 
         gui.nvl_name_width = 458
@@ -504,3 +533,4 @@ init python:
         gui.nvl_button_width = 1860
 
         gui.nvl_button_xpos = 30
+
