@@ -489,24 +489,23 @@ screen main_menu():
 
     tag menu
 
-    add gui.main_menu_background
+    add "images/Start.png"
 
-    frame:
-        style "main_menu_frame"
+    textbutton "Начать игру":
+        xalign 0.5
+        yalign 0.93
 
-    use navigation
+        text_size 33
+        text_color "#FFFFFF"
+        text_hover_color "#E8DDF2"
 
-    if gui.show_name:
+        
 
-        vbox:
-            style "main_menu_vbox"
+        background None
+        hover_background None
+        insensitive_background None
 
-            text "[config.name!t]":
-                style "main_menu_title"
-
-            text "[config.version]":
-                style "main_menu_version"
-
+        action Start()
 
 style main_menu_frame is empty
 style main_menu_vbox is vbox

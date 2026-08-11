@@ -2,9 +2,89 @@
 # ПЕРЕМЕННЫЕ
 # --------------------------------------------------
 
+# --------------------------------------------------
+# АНИМАЦИЯ ПЕРСОНАЖЕЙ
+# --------------------------------------------------
+
+# Персонажи слева, конечная координата -250
+
+transform character_left_250_in:
+    xpos -900
+    ypos 100
+    easein 0.6 xpos -250
+
+transform character_left_250_out:
+    xpos -250
+    easeout 0.5 xpos -900
+
+
+# Персонажи слева, конечная координата -300
+
+transform character_left_300_in:
+    xpos -900
+    ypos 65
+    easein 0.6 xpos -300
+
+transform character_left_300_out:
+    xpos -300
+    easeout 0.5 xpos -900
+
+
+# Вика
+
+transform vika_left_in:
+    xpos -900
+    ypos 100
+    easein 0.6 xpos -250
+
+
+# Игорь
+
+transform igor_left_in:
+    xpos -900
+    ypos 65
+    easein 0.6 xpos -300
+
+
+# Женя
+
+transform zhenya_left_in:
+    xpos -900
+    ypos 100
+    easein 0.6 xpos -250
+
+
+# Макс
+
+transform max_left_in:
+    xpos -900
+    ypos 65
+    easein 0.6 xpos -300
+
+
+# Яша
+
+transform yasha_left_in:
+    xpos -900
+    ypos 65
+    easein 0.6 xpos -300
+
+
+# --------------------------------------------------
+# ГЕРОИНЯ СПРАВА
+# --------------------------------------------------
+
+transform heroine_right_in:
+    xpos 900
+    easein 0.6 xpos 0
+
+transform heroine_right_out:
+    xpos 0
+    easeout 0.5 xpos 900
+
+
 default player_name = "Героиня"
 
-# Обычная внешность
 default heroine = "R1.png"
 
 default heroine_list = [
@@ -16,7 +96,6 @@ default heroine_list = [
 
 default heroine_index = 0
 
-# Внешность в куртке
 default heroine_jacket = "R2.png"
 
 default heroine_jacket_list = [
@@ -26,7 +105,6 @@ default heroine_jacket_list = [
     "N2.png"
 ]
 
-# Внешность для сцены с полицией
 default heroine_police = "R3.png"
 
 default heroine_police_list = [
@@ -36,7 +114,6 @@ default heroine_police_list = [
     "N3.png"
 ]
 
-# Отношения
 default igor_relationship = 0
 default zhenya_relationship = 0
 
@@ -112,16 +189,13 @@ screen heroine_choice():
         xalign 0.5
         yalign 0.5
 
-    # Левая стрелка
     textbutton "‹":
         xpos 20
         yalign 0.5
-
         text_size 64
         text_color "#FFFFFF"
         text_hover_color "#E8DDF2"
         text_outlines [(2, "#00000080", 0, 2)]
-
         background None
         hover_background None
         insensitive_background None
@@ -131,16 +205,13 @@ screen heroine_choice():
             (heroine_index - 1) % len(heroine_list)
         )
 
-    # Правая стрелка
     textbutton "›":
         xpos 365
         yalign 0.5
-
         text_size 64
         text_color "#FFFFFF"
         text_hover_color "#E8DDF2"
         text_outlines [(2, "#00000080", 0, 2)]
-
         background None
         hover_background None
         insensitive_background None
@@ -150,13 +221,10 @@ screen heroine_choice():
             (heroine_index + 1) % len(heroine_list)
         )
 
-    # Продолжить
     textbutton "Продолжить":
         style "choice_button"
-
         xalign 0.5
         ypos 650
-
         action Return()
 
 
@@ -169,12 +237,10 @@ style heroine_choice_text:
     size 28
     outlines [(2, "#00000080", 0, 2)]
 
-
 style heroine_choice_button:
     background None
     hover_background None
     padding (0, 0)
-
 
 style heroine_choice_button_text:
     color "#FFFFFF"
@@ -212,13 +278,10 @@ screen name_choice():
         length 20
         size 28
 
-    # Продолжить
     textbutton "Продолжить":
         style "choice_button"
-
         xalign 0.5
         ypos 650
-
         action Return()
 
 
@@ -232,7 +295,6 @@ label start:
 
     call screen heroine_choice
 
-    # Сохраняем выбранную внешность
     $ heroine = heroine_list[heroine_index]
 
     call screen name_choice
@@ -247,7 +309,7 @@ label start:
 
     scene image "images/Home.png"
 
-    show image "images/" + heroine
+    show image "images/" + heroine at heroine_right_in
 
     e "Ура! Я иду на свой первый в жизни панк-рок концерт. Познакомлюсь с другими фанатами, послушаю музыку, а может быть даже и потанцую!"
 
@@ -262,7 +324,7 @@ label start:
 
     scene image "images/Home.png"
 
-    show image "images/" + heroine_jacket
+    show image "images/" + heroine_jacket at heroine_right_in
 
     e "Теперь я готова!"
 
@@ -291,7 +353,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/" + heroine_jacket
+    show image "images/" + heroine_jacket at heroine_right_in
 
     e "?"
 
@@ -302,9 +364,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Vika2.png":
-        xpos -250
-        ypos 100
+    show image "images/Vika2.png" at vika_left_in
 
     stranger1 "Впустите пожалуйста! Я забыла его, но у меня день рождения."
 
@@ -324,9 +384,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Vika2.png":
-        xpos -250
-        ypos 100
+    show image "images/Vika2.png" at vika_left_in
 
     stranger1 "Блин, и что теперь делать?"
 
@@ -337,9 +395,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Igor2.png":
-        xpos -300
-        ypos 65
+    show image "images/Igor2.png" at igor_left_in
 
     stranger2 "Может на такси по-быстрому сгонять?"
 
@@ -350,9 +406,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Vika2.png":
-        xpos -250
-        ypos 100
+    show image "images/Vika2.png" at vika_left_in
 
     stranger1 "Можно было бы, но у меня нет денег. Ребят?"
 
@@ -363,9 +417,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Zhenya2.png":
-        xpos -250
-        ypos 100
+    show image "images/Zhenya2.png" at zhenya_left_in
 
     stranger3 "Такси стоит недорого, но у меня тоже нет, последние потратила на этот билет."
 
@@ -376,9 +428,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Max2.png":
-        xpos -300
-        ypos 65
+    show image "images/Max2.png" at max_left_in
 
     stranger4 "Тоже нет, сорян..."
 
@@ -389,9 +439,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Yasha2.png":
-        xpos -300
-        ypos 65
+    show image "images/Yasha2.png" at yasha_left_in
 
     stranger5 "Реально, что делать будем?"
 
@@ -402,7 +450,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/" + heroine_jacket
+    show image "images/" + heroine_jacket at heroine_right_in
 
     e "Привет! Я могу помочь тебе. Вызвать такси."
 
@@ -413,9 +461,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Vika1.png":
-        xpos -250
-        ypos 100
+    show image "images/Vika1.png" at vika_left_in
 
     stranger1 "О, привет! Правда? Ты бы нас очень выручила, как тебя зовут?"
 
@@ -426,7 +472,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/" + heroine_jacket
+    show image "images/" + heroine_jacket at heroine_right_in
 
     e "[player_name]. А вас как зовут?"
 
@@ -437,45 +483,35 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Vika1.png":
-        xpos -250
-        ypos 100
+    show image "images/Vika1.png" at vika_left_in
 
     vika "А я Вика, очень приятно!"
 
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Igor1.png":
-        xpos -300
-        ypos 65
+    show image "images/Igor1.png" at igor_left_in
 
     igor "Привет! Я Игорь"
 
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Zhenya1.png":
-        xpos -250
-        ypos 100
+    show image "images/Zhenya1.png" at zhenya_left_in
 
     zhenya "Хэй! Я Женя!"
 
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Max1.png":
-        xpos -300
-        ypos 65
+    show image "images/Max1.png" at max_left_in
 
     maks "Привет, я Макс!"
 
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Yasha1.png":
-        xpos -300
-        ypos 65
+    show image "images/Yasha2.png" at yasha_left_in
 
     yasha "Я Яша, привет, новая подруга!"
 
@@ -486,9 +522,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    show image "images/Vika1.png":
-        xpos -250
-        ypos 100
+    show image "images/Vika1.png" at vika_left_in
 
     vika "Спасибо большое за такси! Я обязательно верну. Курить будешь?"
 
@@ -503,7 +537,7 @@ label start:
 
             scene image "images/Bar_Street.png"
 
-            show image "images/" + heroine_jacket
+            show image "images/" + heroine_jacket at heroine_right_in
 
             e "Да, давай."
 
@@ -515,25 +549,21 @@ label start:
 
             scene image "images/Bar_Street.png"
 
-            show image "images/Zhenya1.png":
-                xpos -250
-                ypos 100
+            show image "images/Zhenya1.png" at zhenya_left_in
 
             zhenya "Ну и правильно!"
 
 
             scene image "images/Bar_Street.png"
 
-            show image "images/Igor1.png":
-                xpos -300
-                ypos 65
+            show image "images/Igor1.png" at igor_left_in
 
             igor "Молодец, что не куришь!"
 
 
             scene image "images/Bar_Street.png"
 
-            show image "images/" + heroine_jacket
+            show image "images/" + heroine_jacket at heroine_right_in
 
             e "«А я думала, в панк-рок тусовке все курят»"
 
@@ -553,7 +583,7 @@ label start:
 
     scene image "images/Bar.png"
 
-    show image "images/" + heroine_jacket
+    show image "images/" + heroine_jacket at heroine_right_in
 
     e "Класс! Отличный вечер. Только пить очень хочется"
 
@@ -586,9 +616,7 @@ label start:
 
             scene image "images/Bar_Silence.png"
 
-            show image "images/Max2.png":
-                xpos -300
-                ypos 65
+            show image "images/Max2.png" at max_left_in
 
             maks "???"
 
@@ -599,9 +627,7 @@ label start:
 
             scene image "images/Bar_Silence.png"
 
-            show image "images/Zhenya2.png":
-                xpos -250
-                ypos 100
+            show image "images/Zhenya2.png" at zhenya_left_in
 
             zhenya "..."
 
@@ -612,9 +638,7 @@ label start:
 
             scene image "images/Bar_Silence.png"
 
-            show image "images/Igor2.png":
-                xpos -300
-                ypos 65
+            show image "images/Igor2.png" at igor_left_in
 
             igor "Ну вот..."
 
@@ -625,9 +649,7 @@ label start:
 
             scene image "images/Bar_Silence.png"
 
-            show image "images/Yasha2.png":
-                xpos -300
-                ypos 65
+            show image "images/Yasha2.png" at yasha_left_in
 
             yasha "Ну и дела..."
 
@@ -640,7 +662,7 @@ label start:
 
             scene image "images/Bar_Silence.png"
 
-            show image "images/" + heroine_police
+            show image "images/" + heroine_police at heroine_right_in
 
             e "Что происходит?"
 
