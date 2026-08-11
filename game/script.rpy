@@ -1,5 +1,4 @@
-﻿
-# --------------------------------------------------
+﻿# --------------------------------------------------
 # ПЕРЕМЕННЫЕ
 # --------------------------------------------------
 
@@ -107,6 +106,7 @@ screen heroine_choice():
         size 28
         color "#FFFFFF"
         text_align 0.5
+        outlines [(2, "#00000080", 0, 2)]
 
     add "images/" + heroine_list[heroine_index]:
         xalign 0.5
@@ -152,30 +152,28 @@ screen heroine_choice():
 
     # Продолжить
     textbutton "Продолжить":
+        style "choice_button"
+
         xalign 0.5
-        yalign 0.9
-
-        text_size 28
-        text_color "#FFFFFF"
-        text_hover_color "#E8DDF2"
-        text_outlines [(2, "#00000080", 0, 2)]
-
-        background None
-        hover_background None
-        insensitive_background None
+        ypos 650
 
         action Return()
 
-# --------------------------------------------------
-# ВЫБОР ИМЕНИ
-# --------------------------------------------------
 
-
+# --------------------------------------------------
+# СТИЛИ ВЫБОРА
+# --------------------------------------------------
 
 style heroine_choice_text:
     color "#FFFFFF"
     size 28
     outlines [(2, "#00000080", 0, 2)]
+
+
+style heroine_choice_button:
+    background None
+    hover_background None
+    padding (0, 0)
 
 
 style heroine_choice_button_text:
@@ -184,6 +182,10 @@ style heroine_choice_button_text:
     size 28
     outlines [(2, "#00000080", 0, 2)]
 
+
+# --------------------------------------------------
+# ВЫБОР ИМЕНИ
+# --------------------------------------------------
 
 screen name_choice():
 
@@ -197,40 +199,27 @@ screen name_choice():
 
     text "Выбери себе имя":
         xalign 0.5
-        ypos 250
-        style "heroine_choice_text"
+        ypos 80
+        size 28
+        color "#FFFFFF"
+        outlines [(2, "#00000080", 0, 2)]
 
     input:
         value VariableInputValue("player_name")
         xalign 0.5
-        ypos 330
+        ypos 120
         pixel_width 300
         length 20
         size 28
 
+    # Продолжить
     textbutton "Продолжить":
-        xalign 0.5
-        ypos 420
+        style "choice_button"
 
-        style "heroine_choice_button"
+        xalign 0.5
+        ypos 650
 
         action Return()
-
-
-style heroine_choice_button:
-    background None
-    hover_background None
-    padding (0, 0)
-
-style heroine_choice_button_text:
-    color "#FFFFFF"
-    hover_color "#E8DDF2"
-    size 28
-    outlines [(2, "#00000080", 0, 2)]
-
-
-
-
 
 
 # --------------------------------------------------
@@ -240,7 +229,12 @@ style heroine_choice_button_text:
 label start:
 
     call screen intro_screen
+
     call screen heroine_choice
+
+    # Сохраняем выбранную внешность
+    $ heroine = heroine_list[heroine_index]
+
     call screen name_choice
 
     if player_name == "":
@@ -669,4 +663,3 @@ label start:
 
 
     return
-

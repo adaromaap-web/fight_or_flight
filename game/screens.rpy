@@ -277,6 +277,7 @@ style choice_frame:
     xalign 0.5
     yalign 0.5
 
+
     xsize 520
 
     xpadding 30
@@ -284,12 +285,15 @@ style choice_frame:
 
     background Frame(
         Solid("#17131D"),
-        24, 24, 24, 24
+        36, 36, 36, 36
     )
 
     outlines [
-        (3, "#FFFFFF33", 0, 0)
+        (12, "#17131D88", 0, 0),
+        (6, "#17131DBB", 0, 0),
+        (2, "#FFFFFF22", 0, 0)
     ]
+
 
 
 style choice_button is button:
