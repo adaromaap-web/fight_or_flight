@@ -284,12 +284,20 @@ screen name_choice():
         ypos 650
         action Return()
 
+screen startup_splash(image_name):
 
+    add "images/" + image_name
+
+    timer 2.0 action Return()
 # --------------------------------------------------
 # НАЧАЛО ИГРЫ
 # --------------------------------------------------
 
 label start:
+
+    call screen startup_splash("Start1.png")
+    
+    call screen startup_splash("Start2.png")
 
     call screen intro_screen
 
