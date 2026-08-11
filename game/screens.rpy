@@ -375,8 +375,6 @@ style choice_button:
 style choice_button_text:
     variant "small"
 
-    size 34
-
     color "#FFFFFF"
     hover_color "#FFFFFF"
 
@@ -384,6 +382,7 @@ style choice_button_text:
     xalign 0.5
     yalign 0.5
 
+    size 24
     font "DejaVuSans-Bold.ttf"
 
 

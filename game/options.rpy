@@ -14,8 +14,9 @@
 
 define config.name = _("Fight or Flight")
 
+define build.android_adaptive_icon_foreground = "android-icon-foreground.png"
 
-
+define build.android_adaptive_icon_background = "android-icon-background.png"
 
 ## Определяет, показывать ли заголовок, данный выше, на экране главного меню.
 ## Установите на False, чтобы спрятать заголовок.

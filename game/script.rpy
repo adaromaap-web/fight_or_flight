@@ -165,7 +165,93 @@ screen intro_screen():
         ypos 740
         text_size 25
         action Return()
+                
+screen home_screen():
 
+    add "images/Home.png"
+
+    text "Музыкальное сопровождение":
+        xalign 0.5
+        yalign 0.3
+        text_align 0.5
+        color "#FFFFFF"
+        size 22
+
+    hbox:
+        xalign 0.5
+        yalign 0.45
+        spacing 15
+
+        textbutton "Включить":
+            action Play("music", "audio/attic13-punk-rock-track-149124.mp3")
+            xsize 180
+            yminimum 90
+
+            background Frame(
+                Solid("#2A2433F5"),
+                18, 18, 18, 18
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                18, 18, 18, 18
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+            text_size 20
+            text_font "DejaVuSans-Bold.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
+
+        textbutton "Выключить":
+            action Stop("music")
+            xsize 180
+            yminimum 90
+
+            background Frame(
+                Solid("#2A2433F5"),
+                18, 18, 18, 18
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                18, 18, 18, 18
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+            text_size 20
+            text_font "DejaVuSans-Bold.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
+
+    textbutton "Продолжить":
+        style "choice_button"
+        xalign 0.5
+        ypos 650
+
+        background Frame(
+            Solid("#2A2433F5"),
+            20, 20, 20, 20
+        )
+
+        hover_background Frame(
+            Solid("#4A3C58FF"),
+            20, 20, 20, 20
+        )
+
+        text_color "#FFFFFF"
+        text_hover_color "#FFFFFF"
+        text_size 23
+        text_font "DejaVuSans-Bold.ttf"
+        text_xalign 0.5
+        text_yalign 0.5
+        text_text_align 0.5
+
+        action Return()
 
 # --------------------------------------------------
 # ВЫБОР ВНЕШНОСТИ
@@ -310,6 +396,8 @@ label start:
     call screen startup_splash("Start2.png")
 
     call screen intro_screen
+
+    call screen home_screen
 
     call screen heroine_choice
 
