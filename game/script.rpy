@@ -271,12 +271,14 @@ screen name_choice():
         outlines [(2, "#00000080", 0, 2)]
 
     input:
+        id "name_input"
         value VariableInputValue("player_name")
         xalign 0.5
         ypos 120
         pixel_width 300
         length 20
         size 28
+        action Return()
 
     textbutton "Продолжить":
         style "choice_button"
@@ -292,6 +294,14 @@ screen startup_splash(image_name):
 # --------------------------------------------------
 # НАЧАЛО ИГРЫ
 # --------------------------------------------------
+
+screen finish_screen():
+
+    button:
+        xfill True
+        yfill True
+        background "images/Finish1.png"
+        action Quit(confirm=False)
 
 label start:
 
@@ -692,4 +702,4 @@ label start:
             "Ты заглянула за угол и увидела, как к дверям подъехала полицейская машина…"
 
 
-    return
+    call screen finish_screen

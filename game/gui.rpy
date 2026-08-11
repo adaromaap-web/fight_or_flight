@@ -471,9 +471,9 @@ init python:
         ## Кнопки выбора
         ########################################################################
 
-        gui.choice_button_width = 1860
+        gui.choice_button_width = 1800
 
-        gui.choice_button_text_size = 45
+        gui.choice_button_text_size = 48
 
 
         ########################################################################
