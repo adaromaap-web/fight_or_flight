@@ -203,7 +203,167 @@ style say_dialogue:
     ypos gui.dialogue_ypos
     adjust_spacing False
 
+init python:
 
+    def continue_game():
+        newest = FileNewest("1-1")
+
+        if newest:
+            renpy.load(newest)
+        else:
+            renpy.full_restart()
+
+screen confirm(message, yes_action, no_action):
+
+    modal True
+    zorder 200
+
+    add Solid("#00000099")
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        xpadding 50
+        ypadding 40
+
+        background Frame(
+            Solid("#17131D"),
+            25, 25, 25, 25
+        )
+
+        vbox:
+            spacing 30
+            xalign 0.5
+
+            text message:
+                xalign 0.5
+                text_align 0.5
+                color "#000000"
+                size 25
+
+            hbox:
+                xalign 0.5
+                spacing 50
+
+                textbutton "Да":
+                    action yes_action
+
+                textbutton "Нет":
+                    action no_action
+                    
+screen new_game_confirm():
+
+    modal True
+    zorder 300
+
+    add Solid("#00000099")
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+
+        xsize 600
+        ysize 300
+
+        background Solid("#FFFFFF")
+
+        vbox:
+            xalign 0.5
+            yalign 0.5
+            spacing 30
+
+            text "Начать новую игру?":
+                xalign 0.5
+                color "#000000"
+                size 30
+                font "DejaVuSans.ttf"
+
+            text "Текущий прогресс будет потерян.":
+                xalign 0.5
+                color "#000000"
+                size 22
+                font "DejaVuSans.ttf"
+
+            hbox:
+                xalign 0.5
+                spacing 60
+
+                textbutton "Да":
+                    text_color "#000000"
+                    text_hover_color "#555555"
+                    text_size 25
+                    action [
+                        Hide("new_game_confirm"),
+                        Start()
+                    ]
+
+                textbutton "Нет":
+                    text_color "#000000"
+                    text_hover_color "#555555"
+                    text_size 25
+                    action Hide("new_game_confirm")
+
+screen main_game_menu():
+
+    modal True
+
+    add "images/Leo.png"
+
+    vbox:
+        xalign 0.5
+        yalign 0.65
+        spacing 18
+
+        textbutton "Продолжить":
+            xalign 0.5
+            xsize 380
+            yminimum 70
+
+            background Frame(
+                Solid("#2A2433F5"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
+
+            action Function(continue_game)
+
+        textbutton "Новая игра":
+            xalign 0.5
+            xsize 380
+            yminimum 70
+
+            background Frame(
+                Solid("#2A2433F5"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
+
+            action Show("new_game_confirm")
+            
 ################################################################################
 ## Экран ввода
 ################################################################################
@@ -488,51 +648,62 @@ screen main_menu():
 
     tag menu
 
-    add "images/Start.png"
+    add "images/Leo.png"
 
-    textbutton "Начать игру":
+    vbox:
         xalign 0.5
-        yalign 0.93
+        yalign 0.78
+        spacing 18
 
-        text_size 33
-        text_color "#FFFFFF"
-        text_hover_color "#E8DDF2"
+        textbutton "Продолжить":
+            xalign 0.5
+            xsize 380
+            yminimum 70
 
-        
+            background Frame(
+                Solid("#2A2433F5"),
+                20, 20, 20, 20
+            )
 
-        background None
-        hover_background None
-        insensitive_background None
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
 
-        action Start()
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
 
-style main_menu_frame is empty
-style main_menu_vbox is vbox
-style main_menu_text is gui_text
-style main_menu_title is main_menu_text
-style main_menu_version is main_menu_text
+            action Function(continue_game)
 
-style main_menu_frame:
-    xsize 420
-    yfill True
-    background "gui/overlay/main_menu.png"
+        textbutton "Новая игра":
+            xalign 0.5
+            xsize 380
+            yminimum 70
 
-style main_menu_vbox:
-    xalign 1.0
-    xoffset -30
-    xmaximum 1200
-    yalign 1.0
-    yoffset -30
+            background Frame(
+                Solid("#2A2433F5"),
+                20, 20, 20, 20
+            )
 
-style main_menu_text:
-    properties gui.text_properties("main_menu", accent=True)
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
 
-style main_menu_title:
-    properties gui.text_properties("title")
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
 
-style main_menu_version:
-    properties gui.text_properties("version")
-
+            action Show("new_game_confirm")
 
 ################################################################################
 ## Экран игрового меню

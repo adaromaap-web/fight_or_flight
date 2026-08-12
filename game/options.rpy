@@ -23,6 +23,8 @@ define build.android_adaptive_icon_background = "android-icon-background.png"
 
 define gui.show_name = True
 
+define config.autosave_frequency = 3
+
 
 ## Версия игры.
 

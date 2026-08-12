@@ -2,6 +2,7 @@
 # ПЕРЕМЕННЫЕ
 # --------------------------------------------------
 
+
 # --------------------------------------------------
 # АНИМАЦИЯ ПЕРСОНАЖЕЙ
 # --------------------------------------------------
@@ -142,6 +143,7 @@ define yasha = Character("Яша", color="#FFFFFF")
 # --------------------------------------------------
 # ПЕРВЫЙ ЭКРАН
 # --------------------------------------------------
+
 
 screen intro_screen():
 
@@ -389,7 +391,26 @@ screen finish_screen():
         background "images/Finish1.png"
         action Quit(confirm=False)
 
+init python:
+
+    def autosave_game():
+        renpy.save("autosave")
+
+    def continue_game():
+
+        if renpy.can_load("autosave"):
+            renpy.load("autosave")
+        else:
+            renpy.notify("Сохранений пока нет.")
+
+
+screen autosave_timer():
+
+    timer 2.0 repeat True action Function(autosave_game)
+    
 label start:
+
+    show screen autosave_timer
 
     call screen startup_splash("Start1.png")
     
@@ -408,6 +429,7 @@ label start:
     if player_name == "":
         $ player_name = "Героиня"
 
+    show screen autosave_timer
 
     # --------------------------------------------------
     # ДОМА
