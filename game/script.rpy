@@ -144,30 +144,18 @@ define yasha = Character("Яша", color="#FFFFFF")
 # ПЕРВЫЙ ЭКРАН
 # --------------------------------------------------
 
-
 screen intro_screen():
 
     modal True
 
-    frame:
-        xfill True
-        yfill True
-        background "#000000"
-
-        text "Ты — простая девчонка, живущая в крупном городе.\n\nТы начала увлекаться панк-роком и впервые в жизни решила сходить на концерт, но ты ещё не знала, в какое приключение это выльется…":
-            xalign 0.5
-            yalign 0.5
-            xmaximum 370
-            text_align 0.5
-            color "#FFFFFF"
-            size 20
+    add "images/Intro.png"
 
     textbutton "Продолжить":
         xalign 0.5
         ypos 740
         text_size 25
         action Return()
-                
+              
 screen home_screen():
 
     add "images/Home.png"
@@ -407,7 +395,7 @@ init python:
 screen autosave_timer():
 
     timer 2.0 repeat True action Function(autosave_game)
-    
+
 label start:
 
     show screen autosave_timer
@@ -415,6 +403,8 @@ label start:
     call screen startup_splash("Start1.png")
     
     call screen startup_splash("Start2.png")
+
+    call screen startup_splash("Glava1.png")
 
     call screen intro_screen
 

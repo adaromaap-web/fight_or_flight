@@ -203,16 +203,6 @@ style say_dialogue:
     ypos gui.dialogue_ypos
     adjust_spacing False
 
-init python:
-
-    def continue_game():
-        newest = FileNewest("1-1")
-
-        if newest:
-            renpy.load(newest)
-        else:
-            renpy.full_restart()
-
 screen confirm(message, yes_action, no_action):
 
     modal True
@@ -310,59 +300,61 @@ screen main_game_menu():
     add "images/Leo.png"
 
     vbox:
-        xalign 0.5
-        yalign 0.65
-        spacing 18
 
-        textbutton "Продолжить":
+        fixed:
             xalign 0.5
-            xsize 380
-            yminimum 70
+            yalign 0.3
+            spacing 18
 
-            background Frame(
-                Solid("#2A2433F5"),
-                20, 20, 20, 20
-            )
+            textbutton "Продолжить":
+                xalign 0.5
+                xsize 380
+                yminimum 70
 
-            hover_background Frame(
-                Solid("#4A3C58FF"),
-                20, 20, 20, 20
-            )
+                background Frame(
+                    Solid("#2A2433F5"),
+                    20, 20, 20, 20
+                )
 
-            text_color "#FFFFFF"
-            text_hover_color "#FFFFFF"
-            text_size 23
-            text_font "DejaVuSans-Bold.ttf"
-            text_xalign 0.5
-            text_yalign 0.5
-            text_text_align 0.5
+                hover_background Frame(
+                    Solid("#4A3C58FF"),
+                    20, 20, 20, 20
+                )
 
-            action Function(continue_game)
+                text_color "#FFFFFF"
+                text_hover_color "#FFFFFF"
+                text_size 23
+                text_font "DejaVuSans-Bold.ttf"
+                text_xalign 0.5
+                text_yalign 0.5
+                text_text_align 0.5
 
-        textbutton "Новая игра":
-            xalign 0.5
-            xsize 380
-            yminimum 70
+                action Function(continue_game)
 
-            background Frame(
-                Solid("#2A2433F5"),
-                20, 20, 20, 20
-            )
+            textbutton "Новая игра":
+                xalign 0.5
+                xsize 380
+                yminimum 70
 
-            hover_background Frame(
-                Solid("#4A3C58FF"),
-                20, 20, 20, 20
-            )
+                background Frame(
+                    Solid("#2A2433F5"),
+                    20, 20, 20, 20
+                )
 
-            text_color "#FFFFFF"
-            text_hover_color "#FFFFFF"
-            text_size 23
-            text_font "DejaVuSans-Bold.ttf"
-            text_xalign 0.5
-            text_yalign 0.5
-            text_text_align 0.5
+                hover_background Frame(
+                    Solid("#4A3C58FF"),
+                    20, 20, 20, 20
+                )
 
-            action Show("new_game_confirm")
+                text_color "#FFFFFF"
+                text_hover_color "#FFFFFF"
+                text_size 23
+                text_font "DejaVuSans-Bold.ttf"
+                text_xalign 0.5
+                text_yalign 0.5
+                text_text_align 0.5
+
+                action Show("new_game_confirm")
             
 ################################################################################
 ## Экран ввода
@@ -652,7 +644,7 @@ screen main_menu():
 
     vbox:
         xalign 0.5
-        yalign 0.78
+        yalign 0.5
         spacing 18
 
         textbutton "Продолжить":
