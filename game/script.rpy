@@ -2,7 +2,6 @@
 # ПЕРЕМЕННЫЕ
 # --------------------------------------------------
 
-
 # --------------------------------------------------
 # АНИМАЦИЯ ПЕРСОНАЖЕЙ
 # --------------------------------------------------
@@ -84,7 +83,7 @@ transform heroine_right_out:
     easeout 0.5 xpos 900
 
 
-default player_name = "Героиня"
+default player_name = "Ада"
 
 default heroine = "R1.png"
 
@@ -118,6 +117,10 @@ default heroine_police_list = [
 default igor_relationship = 0
 default zhenya_relationship = 0
 
+default smoking_choice_made = False
+default drink_choice_made = False
+
+
 
 # --------------------------------------------------
 # ПЕРСОНАЖИ
@@ -148,98 +151,104 @@ screen intro_screen():
 
     modal True
 
-    add "images/Intro.png"
+    add "images/LeoDark.png"
 
-    textbutton "Продолжить":
-        xalign 0.5
-        ypos 740
-        text_size 25
-        action Return()
-              
-screen home_screen():
-
-    add "images/Home.png"
-
-    text "Музыкальное сопровождение":
-        xalign 0.5
-        yalign 0.3
-        text_align 0.5
-        color "#FFFFFF"
-        size 22
-
-    hbox:
+    text "{b}Ты — простая девчонка, живущая в крупном городе. Ты начала увлекаться панк-роком и впервые в жизни решила сходить на концерт, но ты ещё не знала, в какой приключение это выльется…{/b}":
         xalign 0.5
         yalign 0.45
-        spacing 15
+        text_align 0.5
+        size 23
+        font "BadScript-Regular.ttf"
+        color "#FFFFFF"
 
-        textbutton "Включить":
-            action Play("music", "audio/attic13-punk-rock-track-149124.mp3")
-            xsize 180
-            yminimum 90
+    textbutton "{i}Продолжить{/i}":
+        xsize 460
+        yminimum 76
 
-            background Frame(
-                Solid("#2A2433F5"),
-                18, 18, 18, 18
-            )
-
-            hover_background Frame(
-                Solid("#4A3C58FF"),
-                18, 18, 18, 18
-            )
-
-            text_color "#FFFFFF"
-            text_hover_color "#FFFFFF"
-            text_size 20
-            text_font "DejaVuSans-Bold.ttf"
-            text_xalign 0.5
-            text_yalign 0.5
-            text_text_align 0.5
-
-        textbutton "Выключить":
-            action Stop("music")
-            xsize 180
-            yminimum 90
-
-            background Frame(
-                Solid("#2A2433F5"),
-                18, 18, 18, 18
-            )
-
-            hover_background Frame(
-                Solid("#4A3C58FF"),
-                18, 18, 18, 18
-            )
-
-            text_color "#FFFFFF"
-            text_hover_color "#FFFFFF"
-            text_size 20
-            text_font "DejaVuSans-Bold.ttf"
-            text_xalign 0.5
-            text_yalign 0.5
-            text_text_align 0.5
-
-    textbutton "Продолжить":
-        style "choice_button"
         xalign 0.5
         ypos 650
 
-        background Frame(
-            Solid("#2A2433F5"),
-            20, 20, 20, 20
-        )
+        padding (18, 12)
 
-        hover_background Frame(
-            Solid("#4A3C58FF"),
-            20, 20, 20, 20
-        )
+        background None
+        hover_background None
+
+        text_color "#FFFFFF"
+        text_hover_color "#E8DDF2"
+        text_size 28
+
+        text_xalign 0.5
+        text_yalign 0.5
+
+        action Return()
+# --------------------------------------------------
+# ГЛАВНОЕ МЕНЮ
+# --------------------------------------------------
+
+screen home_screen():
+
+    add "images/LeoDark.png"
+
+    text "{i}Музыкальное сопровождение{/i}":
+        xalign 0.5
+        ypos 120
+        size 28
+        color "#FFFFFF"
+        text_align 0.5
+
+
+    vbox:
+        xalign 0.5
+        yalign 0.48
+        spacing 20
+
+        textbutton "{b}Включить{/b}":
+            xsize 380
+            yminimum 70
+
+            text_color "#FFFFFF"
+            text_hover_color "#E8DDF2"
+            text_size 32
+            text_font "BadScript-Regular.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+
+            action Play(
+                "music",
+                "audio/attic13-punk-rock-track-149124.mp3"
+            )
+
+        textbutton "{b}Выключить{/b}":
+            xsize 380
+            yminimum 70
+
+            text_color "#FFFFFF"
+            text_hover_color "#E8DDF2"
+            text_size 32
+            text_font "BadScript-Regular.ttf"
+            text_xalign 0.5
+            text_yalign 0.5
+
+            action Stop("music")
+
+    textbutton "{i}Продолжить{/i}":
+        xsize 460
+        yminimum 76
+
+        xalign 0.5
+        ypos 650
+
+        padding (18, 12)
+
+        background None
+        hover_background None
 
         text_color "#FFFFFF"
         text_hover_color "#FFFFFF"
-        text_size 23
-        text_font "DejaVuSans-Bold.ttf"
+        text_size 28
+
         text_xalign 0.5
         text_yalign 0.5
-        text_text_align 0.5
 
         action Return()
 
@@ -253,17 +262,17 @@ screen heroine_choice():
 
     add "images/Home.png"
 
-    text "Выбери себе внешность":
+    text "{i}Выбери себе внешность{/i}":
         xalign 0.5
         ypos 80
         size 28
         color "#FFFFFF"
         text_align 0.5
-        outlines [(2, "#00000080", 0, 2)]
 
     add "images/" + heroine_list[heroine_index]:
         xalign 0.5
         yalign 0.5
+
 
     textbutton "‹":
         xpos 20
@@ -281,6 +290,7 @@ screen heroine_choice():
             (heroine_index - 1) % len(heroine_list)
         )
 
+
     textbutton "›":
         xpos 365
         yalign 0.5
@@ -297,11 +307,39 @@ screen heroine_choice():
             (heroine_index + 1) % len(heroine_list)
         )
 
-    textbutton "Продолжить":
-        style "choice_button"
+    textbutton "{i}Продолжить{/i}":
+        xsize 460
+        yminimum 76
+
         xalign 0.5
         ypos 650
+
+        padding (18, 12)
+
+        background Frame(
+        Solid("#2A2433EE"),
+        18, 18, 18, 18
+        )
+
+        hover_background Frame(
+        Solid("#463A52F2"),
+        18, 18, 18, 18
+        )
+
+        insensitive_background Frame(
+        Solid("#201C25CC"),
+        18, 18, 18, 18
+        )
+
+        text_color "#FFFFFF"
+        text_hover_color "#E8DDF2"
+        text_size 28
+
+        text_xalign 0.5
+        text_yalign 0.5
+
         action Return()
+
 
 
 # --------------------------------------------------
@@ -339,12 +377,11 @@ screen name_choice():
         xalign 0.5
         yalign 0.5
 
-    text "Выбери себе имя":
+    text "{i}Выбери себе имя{/i}":
         xalign 0.5
         ypos 80
-        size 28
+        size 24
         color "#FFFFFF"
-        outlines [(2, "#00000080", 0, 2)]
 
     input:
         id "name_input"
@@ -354,57 +391,598 @@ screen name_choice():
         pixel_width 300
         length 20
         size 28
+        color "#2A2433F5"
         action Return()
 
-    textbutton "Продолжить":
-        style "choice_button"
+    textbutton "{i}Продолжить{/i}":
+        xsize 460
+        yminimum 76
+
         xalign 0.5
         ypos 650
+
+        padding (18, 12)
+
+        background Frame(
+        Solid("#2A2433EE"),
+        18, 18, 18, 18
+        )
+
+        hover_background Frame(
+        Solid("#463A52F2"),
+        18, 18, 18, 18
+        )
+
+        insensitive_background Frame(
+        Solid("#201C25CC"),
+        18, 18, 18, 18
+        )
+
+        text_color "#FFFFFF"
+        text_hover_color "#E8DDF2"
+        text_size 28
+
+        text_xalign 0.5
+        text_yalign 0.5
+
         action Return()
 
-screen startup_splash(image_name):
+# --------------------------------------------------
+# START 1
+# --------------------------------------------------
 
-    add "images/" + image_name
+screen start1_screen():
+
+    modal True
+
+    add "images/Start.png"
+
+    text "{b}Разработчица и художница: ADA{/b}":
+        xalign 0.5
+        yalign 0.88
+        text_align 0.5
+        size 22
+        color "#FFFFFF"
+        font "BadScript-Regular.ttf"
 
     timer 2.0 action Return()
+
+    text "{b}Инстаграм: @perzeptr0n (через ноль){/b}":
+        xalign 0.5
+        yalign 0.93
+        text_align 0.5
+        size 22
+        color "#FFFFFF"
+        font "BadScript-Regular.ttf"
+
+    timer 2.0 action Return()
+
+
+
 # --------------------------------------------------
-# НАЧАЛО ИГРЫ
+# START 2
+# --------------------------------------------------
+
+screen start2_screen():
+
+    modal True
+
+    add "images/Start.png"
+
+    text "{b}Музыка: Punk rock Track — attic13{/b}":
+        xalign 0.5
+        yalign 0.88
+        text_align 0.5
+        size 22
+        color "#FFFFFF"
+        font "BadScript-Regular.ttf"
+
+    timer 2.0 action Return()
+
+    text "{b}Ресурс: Pixabay{/b}":
+        xalign 0.5
+        yalign 0.93
+        text_align 0.95
+        size 22
+        color "#FFFFFF"
+        font "BadScript-Regular.ttf"
+
+    timer 2.0 action Return()
+
+
+# --------------------------------------------------
+# STARTUP SPLASH
+# --------------------------------------------------
+
+screen chapter_one_screen():
+
+    modal True
+
+    add "images/LeoDark2.png"
+
+    text "{b}Глава 1 — Знакомство{/b}":
+        xalign 0.5
+        yalign 0.5
+        text_align 0.5
+        size 36
+        color "#FFFFFF"
+        font "BadScript-Regular.ttf"
+    
+
+    timer 2.0 action Return()
+
+
+# --------------------------------------------------
+# ЭКРАН ФИНАЛА
 # --------------------------------------------------
 
 screen finish_screen():
 
-    button:
-        xfill True
-        yfill True
-        background "images/Finish1.png"
+    modal True
+
+    add "images/LeoDark2.png"
+
+    textbutton "{b}Конец 1 главы.{/b}":
+        xalign 0.5
+        yalign 0.42
+        text_align 0.5
+        text_size 32
+        text_color "#FFFFFF"
+        text_font "BadScript-Regular.ttf"
+
         action Quit(confirm=False)
+
+    textbutton "{b}Нажмите для выхода{/b}":
+        xalign 0.5
+        yalign 0.52
+        text_align 0.5
+        text_size 32
+        text_color "#FFFFFF"
+        text_font "BadScript-Regular.ttf"
+
+        action Quit(confirm=False)
+
+screen notify(message):
+
+    zorder 100
+
+    text message:
+        xalign 0.5
+        ypos 700
+        text_align 0.5
+        color "#FFFFFF"
+        size 24
+# --------------------------------------------------
+# АВТОСОХРАНЕНИЕ И ПРОДОЛЖЕНИЕ
+# --------------------------------------------------
+
+init -1:
+
+    style italic_menu_text:
+        font "DejaVuSans.ttf"
+        size 28
+        color "#FFFFFF"
+        hover_color "#E8DDF2"
+        text_align 0.5
+        xalign 0.5
+        yalign 0.92
+
+screen notify(message):
+
+    zorder 100
+
+    text "{i}" + message + "{/i}":
+        xalign 0.5
+        ypos 700
+        text_align 0.5
+        color "#FFFFFF"
+        size 28
 
 init python:
 
     def autosave_game():
-        renpy.save("autosave")
+
+        if not renpy.game.context().init_phase:
+
+            try:
+                renpy.force_autosave(block=True)
+
+            except (PermissionError, FileNotFoundError):
+                pass
+
 
     def continue_game():
 
-        if renpy.can_load("autosave"):
-            renpy.load("autosave")
+        slot = renpy.newest_slot("auto-")
+
+        if slot:
+
+            try:
+                renpy.load(slot)
+
+            except (PermissionError, FileNotFoundError):
+                renpy.notify("Не удалось загрузить сохранение.")
+
         else:
+
             renpy.notify("Сохранений пока нет.")
 
+# --------------------------------------------------
+# АВТОСОХРАНЕНИЕ КАЖДЫЕ 2 СЕКУНДЫ
+# --------------------------------------------------
 
 screen autosave_timer():
 
     timer 2.0 repeat True action Function(autosave_game)
 
+
+# --------------------------------------------------
+# ВЫБОР СИГАРЕТЫ
+# --------------------------------------------------
+
+screen smoking_choice_screen():
+
+    modal True
+
+    # Кнопки поверх затемнения
+    vbox:
+        xalign 0.5
+        yalign 0.78
+        spacing 20
+
+
+        textbutton "Да":
+
+            xsize 380
+            yminimum 70
+
+            background Frame(
+                Solid("#2A2433FF"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+
+            text_xalign 0.5
+            text_yalign 0.5
+
+            action Return("yes")
+
+
+        textbutton "Спасибо, не курю":
+
+            xsize 380
+            yminimum 70
+
+            background Frame(
+                Solid("#2A2433FF"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+
+            text_xalign 0.5
+            text_yalign 0.5
+
+            action Return("no")
+
+
+    # Назад
+    textbutton "{b}Назад{/b}":
+
+        xalign 0.05
+        yalign 0.03
+
+        background None
+        hover_background None
+
+        text_color "#FFFFFF"
+        text_hover_color "#CCCCCC"
+        text_font "BadScript-Regular.ttf"
+
+        text_size 20
+
+        action Return("back")
+
+# --------------------------------------------------
+# ВЫБОР СИГАРЕТЫ — ЛОГИКА
+# --------------------------------------------------
+
+label smoking_choice:
+
+    scene image "images/Bar_Street.png"
+
+    show image "images/Vika1.png" at vika_left_in
+
+    vika "Курить будешь?"
+
+    window hide
+
+    $ smoking_choice = renpy.call_screen("smoking_choice_screen")
+
+    if smoking_choice == "back":
+
+        jump smoking_choice
+
+    elif smoking_choice == "yes":
+
+        scene image "images/Bar_Street.png"
+
+        show image "images/" + heroine_jacket at heroine_right_in
+
+        e "Да, давай."
+
+        return
+
+    elif smoking_choice == "no":
+
+        if not smoking_choice_made:
+
+            $ igor_relationship += 1
+            $ zhenya_relationship += 1
+
+        $ smoking_choice_made = True
+
+        scene image "images/Bar_Street.png"
+
+        show image "images/Zhenya1.png" at zhenya_left_in
+
+        zhenya "Ну и правильно!"
+
+        scene image "images/Bar_Street.png"
+
+        show image "images/Igor1.png" at igor_left_in
+
+        igor "Молодец, что не куришь!"
+
+        scene image "images/Bar_Street.png"
+
+        show image "images/" + heroine_jacket at heroine_right_in
+
+        e "«А я думала, в панк-рок тусовке все курят»"
+
+        return
+
+
+# --------------------------------------------------
+# ВЫБОР НАПИТКА
+# --------------------------------------------------
+
+screen drink_choice_screen():
+
+    modal True
+
+    vbox:
+        xalign 0.5
+        yalign 0.82
+        spacing 15
+
+        textbutton "Взять в баре":
+            xsize 380
+            yminimum 70
+
+            background Frame(
+                Solid("#2A2433FF"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+
+            text_xalign 0.5
+            text_yalign 0.5
+
+            action Return("bar")
+
+        button:
+            xsize 380
+            ysize 90
+
+            background Frame(
+                Solid("#2A2433FF"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            action Return("shop")
+
+            text "Взять в магазине у бара":
+                xalign 0.5
+                yalign 0.5
+                text_align 0.5
+                size 23
+                color "#FFFFFF"
+                hover_color "#FFFFFF"
+                font "DejaVuSans-Bold.ttf"
+
+    textbutton "{b}Назад{/b}":
+        xalign 0.05
+        yalign 0.03
+
+        background None
+        hover_background None
+
+        text_color "#FFFFFF"
+        text_hover_color "#CCCCCC"
+        text_size 20
+        text_font "BadScript-Regular.ttf"
+
+        action Return("back")
+
+# --------------------------------------------------
+# ВЫБОР НАПИТКА — ЛОГИКА
+# --------------------------------------------------
+
+label drink_choice:
+
+    scene image "images/Bar.png"
+
+    show image "images/" + heroine_jacket at heroine_right_in
+
+    e "Класс! Отличный вечер. Только пить очень хочется"
+
+    window hide
+
+    $ drink_choice = renpy.call_screen("drink_choice_screen")
+
+    if drink_choice == "back":
+        jump drink_choice
+
+    elif drink_choice == "bar":
+        jump drink_bar
+
+    elif drink_choice == "shop":
+        jump drink_shop
+
+    return
+
+# --------------------------------------------------
+# ВЗЯТЬ НАПИТОК В БАРЕ
+# --------------------------------------------------
+
+label drink_bar:
+
+    scene image "images/Bar.png"
+
+    "{i}Ты решила поддержать заведение{/i}"
+
+
+    # --------------------------------------------------
+    # ПОЛИЦИЯ
+    # --------------------------------------------------
+
+    scene image "images/Police.png"
+
+    "Всем оставаться на местах! Приготовить документы!"
+
+
+    # --------------------------------------------------
+    # МАКС
+    # --------------------------------------------------
+
+    scene image "images/Bar_Silence.png"
+
+    show image "images/Max2.png" at max_left_in
+
+    maks "???"
+
+
+    # --------------------------------------------------
+    # ЖЕНЯ
+    # --------------------------------------------------
+
+    scene image "images/Bar_Silence.png"
+
+    show image "images/Zhenya2.png" at zhenya_left_in
+
+    zhenya "..."
+
+
+    # --------------------------------------------------
+    # ИГОРЬ
+    # --------------------------------------------------
+
+    scene image "images/Bar_Silence.png"
+
+    show image "images/Igor2.png" at igor_left_in
+
+    igor "Ну вот..."
+
+
+    # --------------------------------------------------
+    # ЯША
+    # --------------------------------------------------
+
+    scene image "images/Bar_Silence.png"
+
+    show image "images/Yasha2.png" at yasha_left_in
+
+    yasha "Ну и дела..."
+
+
+    # --------------------------------------------------
+    # ГЕРОИНЯ — НОВАЯ ВНЕШНОСТЬ
+    # --------------------------------------------------
+
+    $ heroine_police = heroine_police_list[heroine_index]
+
+    scene image "images/Bar_Silence.png"
+
+    show image "images/" + heroine_police at heroine_right_in
+
+    e "Что происходит?"
+
+    return
+
+
+# --------------------------------------------------
+# ВЗЯТЬ НАПИТОК В МАГАЗИНЕ
+# --------------------------------------------------
+
+label drink_shop:
+
+    scene image "images/Bar.png"
+
+    "{i}Ты решила сэкономить.{/i}"
+
+
+    scene image "images/Street.png"
+
+    "{i}Ты взяла в магазине то что хотела и направилась к бару. Кто ж знал, что это будет очень вовремя{/i}"
+
+
+    scene image "images/Street.png"
+
+    "{i}Ты заглянула за угол и увидела, как к дверям подъехала полицейская машина…{/i}"
+
+    return
+
+
+# --------------------------------------------------
+# НАЧАЛО ИГРЫ
+# --------------------------------------------------
+
 label start:
+
+    show screen exit_button
 
     show screen autosave_timer
 
-    call screen startup_splash("Start1.png")
-    
-    call screen startup_splash("Start2.png")
+    call screen start1_screen
 
-    call screen startup_splash("Glava1.png")
+    call screen start2_screen
+
+    call screen chapter_one_screen
+
 
     call screen intro_screen
 
@@ -412,14 +990,16 @@ label start:
 
     call screen heroine_choice
 
+
     $ heroine = heroine_list[heroine_index]
 
+
     call screen name_choice
+
 
     if player_name == "":
         $ player_name = "Героиня"
 
-    show screen autosave_timer
 
     # --------------------------------------------------
     # ДОМА
@@ -430,6 +1010,7 @@ label start:
     show image "images/" + heroine at heroine_right_in
 
     e "Ура! Я иду на свой первый в жизни панк-рок концерт. Познакомлюсь с другими фанатами, послушаю музыку, а может быть даже и потанцую!"
+
 
     "Так как ты недавно начала увлекаться панк-роком, из шмоток у тебя только куртка с шипами с маркетплейса. Ты надела её."
 
@@ -453,7 +1034,7 @@ label start:
 
     scene image "images/Bar_Street.png"
 
-    "Ты подошла к бару."
+    "{i}Ты подошла к бару{/i}"
 
 
     # --------------------------------------------------
@@ -642,48 +1223,21 @@ label start:
 
     show image "images/Vika1.png" at vika_left_in
 
-    vika "Спасибо большое за такси! Я обязательно верну. Курить будешь?"
+    vika "Спасибо большое за такси! Я обязательно верну"
+
+
+    scene image "images/Bar_Street.png"
+
+    show image "images/" + heroine_jacket at heroine_right_in
+
+    e "Да, ладно, считай, подарок на день рождения"
 
 
     # --------------------------------------------------
-    # ВЫБОР
+    # ВЫБОР — КУРИТЬ
     # --------------------------------------------------
 
-    menu:
-
-        "Да":
-
-            scene image "images/Bar_Street.png"
-
-            show image "images/" + heroine_jacket at heroine_right_in
-
-            e "Да, давай."
-
-
-        "Спасибо, не курю":
-
-            $ igor_relationship += 1
-            $ zhenya_relationship += 1
-
-            scene image "images/Bar_Street.png"
-
-            show image "images/Zhenya1.png" at zhenya_left_in
-
-            zhenya "Ну и правильно!"
-
-
-            scene image "images/Bar_Street.png"
-
-            show image "images/Igor1.png" at igor_left_in
-
-            igor "Молодец, что не куришь!"
-
-
-            scene image "images/Bar_Street.png"
-
-            show image "images/" + heroine_jacket at heroine_right_in
-
-            e "«А я думала, в панк-рок тусовке все курят»"
+    call smoking_choice from _call_smoking_choice
 
 
     # --------------------------------------------------
@@ -692,114 +1246,18 @@ label start:
 
     scene image "images/Bar.png"
 
-    "Вика поехала за паспортом, а вы зашли в заведение. Первые три песни отыграли. Ты в восторге."
-
-
-    # --------------------------------------------------
-    # ГЕРОИНЯ — ХОЧЕТ ПИТЬ
-    # --------------------------------------------------
-
-    scene image "images/Bar.png"
-
-    show image "images/" + heroine_jacket at heroine_right_in
-
-    e "Класс! Отличный вечер. Только пить очень хочется"
+    "Вика поехала за паспортом, а вы зашли в заведение. Первые три песни отыграли. Ты в восторге"
 
 
     # --------------------------------------------------
     # ВЫБОР — ГДЕ ВЗЯТЬ НАПИТОК
     # --------------------------------------------------
 
-    menu:
-
-        "Взять в баре":
-
-            scene image "images/Bar.png"
-
-            "Ты решила поддержать заведение."
+    call drink_choice from _call_drink_choice
 
 
-            # --------------------------------------------------
-            # ПОЛИЦИЯ
-            # --------------------------------------------------
-
-            scene image "images/Police.png"
-
-            "Всем оставаться на местах! Приготовить документы!"
-
-
-            # --------------------------------------------------
-            # МАКС
-            # --------------------------------------------------
-
-            scene image "images/Bar_Silence.png"
-
-            show image "images/Max2.png" at max_left_in
-
-            maks "???"
-
-
-            # --------------------------------------------------
-            # ЖЕНЯ
-            # --------------------------------------------------
-
-            scene image "images/Bar_Silence.png"
-
-            show image "images/Zhenya2.png" at zhenya_left_in
-
-            zhenya "..."
-
-
-            # --------------------------------------------------
-            # ИГОРЬ
-            # --------------------------------------------------
-
-            scene image "images/Bar_Silence.png"
-
-            show image "images/Igor2.png" at igor_left_in
-
-            igor "Ну вот..."
-
-
-            # --------------------------------------------------
-            # ЯША
-            # --------------------------------------------------
-
-            scene image "images/Bar_Silence.png"
-
-            show image "images/Yasha2.png" at yasha_left_in
-
-            yasha "Ну и дела..."
-
-
-            # --------------------------------------------------
-            # ГЕРОИНЯ — НОВАЯ ВНЕШНОСТЬ
-            # --------------------------------------------------
-
-            $ heroine_police = heroine_police_list[heroine_index]
-
-            scene image "images/Bar_Silence.png"
-
-            show image "images/" + heroine_police at heroine_right_in
-
-            e "Что происходит?"
-
-
-        "Взять в магазине возле бара":
-
-            scene image "images/Bar.png"
-
-            "Ты решила сэкономить."
-
-
-            scene image "images/Street.png"
-
-            "Ты взяла то что хотела в магазине и направилась к бару. Кто ж знал, что это будет очень вовремя."
-
-
-            scene image "images/Street.png"
-
-            "Ты заглянула за угол и увидела, как к дверям подъехала полицейская машина…"
-
+    # --------------------------------------------------
+    # ФИНАЛ
+    # --------------------------------------------------
 
     call screen finish_screen

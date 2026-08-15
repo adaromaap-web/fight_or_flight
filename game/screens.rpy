@@ -80,12 +80,12 @@ style vscrollbar:
     xsize gui.scrollbar_size
     base_bar Frame(
         "gui/scrollbar/vertical_[prefix_]bar.png",
-        gui.vscrollbar_borders,
+        gui.scrollbar_borders,
         tile=gui.scrollbar_tile
     )
     thumb Frame(
         "gui/scrollbar/vertical_[prefix_]thumb.png",
-        gui.vscrollbar_borders,
+        gui.scrollbar_borders,
         tile=gui.scrollbar_tile
     )
 
@@ -140,19 +140,12 @@ screen say(who, what):
         text what:
             id "what"
 
-    ## Если есть боковое изображение ("голова"),
-    ## показывает её поверх текста.
-    ## По стандарту не показывается на мобильных устройствах —
-    ## мало места.
-
     if not renpy.variant("small"):
         add SideImage() xalign 0.0 yalign 1.0
 
 
-## Делает namebox доступным для стилизации через объект Character.
-
 init python:
-    config.character_id_prefixes.append('namebox')
+    config.character_id_prefixes.append("namebox")
 
 
 style window is default
@@ -203,12 +196,28 @@ style say_dialogue:
     ypos gui.dialogue_ypos
     adjust_spacing False
 
+
+style italic_menu_button_text:
+    is button_text
+
+    font "DejaVuSans-Oblique.ttf"
+    size 28
+    color "#FFFFFF"
+    hover_color "#FFFFFF"
+
+    xalign 0.5
+    yalign 0.5
+    text_align 0.5
+
+
+################################################################################
+## Подтверждение
+################################################################################
+
 screen confirm(message, yes_action, no_action):
 
     modal True
     zorder 200
-
-    add Solid("#00000099")
 
     frame:
         xalign 0.5
@@ -240,13 +249,16 @@ screen confirm(message, yes_action, no_action):
 
                 textbutton "Нет":
                     action no_action
-                    
+
+
+################################################################################
+## Подтверждение новой игры
+################################################################################
+
 screen new_game_confirm():
 
     modal True
     zorder 300
-
-    add Solid("#00000099")
 
     frame:
         xalign 0.5
@@ -265,14 +277,12 @@ screen new_game_confirm():
             text "Начать новую игру?":
                 xalign 0.5
                 color "#000000"
-                size 30
-                font "DejaVuSans.ttf"
+                size 28
 
             text "Текущий прогресс будет потерян.":
                 xalign 0.5
                 color "#000000"
-                size 22
-                font "DejaVuSans.ttf"
+                size 20
 
             hbox:
                 xalign 0.5
@@ -293,69 +303,7 @@ screen new_game_confirm():
                     text_size 25
                     action Hide("new_game_confirm")
 
-screen main_game_menu():
 
-    modal True
-
-    add "images/Leo.png"
-
-    vbox:
-
-        fixed:
-            xalign 0.5
-            yalign 0.3
-            spacing 18
-
-            textbutton "Продолжить":
-                xalign 0.5
-                xsize 380
-                yminimum 70
-
-                background Frame(
-                    Solid("#2A2433F5"),
-                    20, 20, 20, 20
-                )
-
-                hover_background Frame(
-                    Solid("#4A3C58FF"),
-                    20, 20, 20, 20
-                )
-
-                text_color "#FFFFFF"
-                text_hover_color "#FFFFFF"
-                text_size 23
-                text_font "DejaVuSans-Bold.ttf"
-                text_xalign 0.5
-                text_yalign 0.5
-                text_text_align 0.5
-
-                action Function(continue_game)
-
-            textbutton "Новая игра":
-                xalign 0.5
-                xsize 380
-                yminimum 70
-
-                background Frame(
-                    Solid("#2A2433F5"),
-                    20, 20, 20, 20
-                )
-
-                hover_background Frame(
-                    Solid("#4A3C58FF"),
-                    20, 20, 20, 20
-                )
-
-                text_color "#FFFFFF"
-                text_hover_color "#FFFFFF"
-                text_size 23
-                text_font "DejaVuSans-Bold.ttf"
-                text_xalign 0.5
-                text_yalign 0.5
-                text_text_align 0.5
-
-                action Show("new_game_confirm")
-            
 ################################################################################
 ## Экран ввода
 ################################################################################
@@ -398,12 +346,6 @@ screen choice(items):
 
     modal True
 
-    ## Затемнение заднего фона.
-    ## На Android благодаря этому окно выбора
-    ## хорошо отделяется от игрового изображения.
-
-    add Solid("#00000066")
-
     frame:
         style "choice_frame"
 
@@ -420,69 +362,6 @@ screen choice(items):
                     action i.action
                     style "choice_button"
 
-
-style choice_vbox is vbox
-
-style choice_frame is frame
-
-style choice_frame:
-    xalign 0.5
-    yalign 0.5
-
-
-    xsize 520
-
-    xpadding 30
-    ypadding 30
-
-    background Frame(
-        Solid("#17131D"),
-        36, 36, 36, 36
-    )
-
-    outlines [
-        (12, "#17131D88", 0, 0),
-        (6, "#17131DBB", 0, 0),
-        (2, "#FFFFFF22", 0, 0)
-    ]
-
-
-
-style choice_button is button:
-    xsize 460
-    yminimum 76
-
-    background Frame(
-        Solid("#2A2433EE"),
-        18, 18, 18, 18
-    )
-
-    hover_background Frame(
-        Solid("#463A52F2"),
-        18, 18, 18, 18
-    )
-
-    insensitive_background Frame(
-        Solid("#201C25CC"),
-        18, 18, 18, 18
-    )
-
-    padding (18, 12)
-
-
-style choice_button_text is button_text:
-    color "#FFFFFF"
-    hover_color "#FFFFFF"
-
-    text_align 0.5
-    xalign 0.5
-    yalign 0.5
-
-    size 25
-
-    font "DejaVuSans-Bold.ttf"
-
-
 ################################################################################
 ## Мобильное оформление выбора
 ################################################################################
@@ -494,16 +373,6 @@ style choice_frame:
 
     xpadding 45
     ypadding 40
-
-    background Frame(
-        Solid("#17131DF2"),
-        30, 30, 30, 30
-    )
-
-    outlines [
-        (4, "#FFFFFF44", 0, 0)
-    ]
-
 
 style choice_button:
     variant "small"
@@ -535,7 +404,6 @@ style choice_button_text:
     yalign 0.5
 
     size 24
-    font "DejaVuSans-Bold.ttf"
 
 
 ################################################################################
@@ -575,7 +443,7 @@ style quick_button_text:
 
 
 ################################################################################
-## Экраны Главного и Игрового меню
+## Навигация
 ################################################################################
 
 screen navigation():
@@ -633,75 +501,59 @@ style navigation_button_text:
 
 
 ################################################################################
-## Экран главного меню
+## Главное меню
 ################################################################################
 
 screen main_menu():
 
     tag menu
 
-    add "images/Leo.png"
+    add "images/LeoDark2.png"
 
     vbox:
         xalign 0.5
         yalign 0.5
         spacing 18
 
-        textbutton "Продолжить":
+        textbutton "{b}Продолжить{/b}":
+
             xalign 0.5
             xsize 380
             yminimum 70
 
-            background Frame(
-                Solid("#2A2433F5"),
-                20, 20, 20, 20
-            )
-
-            hover_background Frame(
-                Solid("#4A3C58FF"),
-                20, 20, 20, 20
-            )
-
+            text_font "BadScript-Regular.ttf"
             text_color "#FFFFFF"
             text_hover_color "#FFFFFF"
-            text_size 23
-            text_font "DejaVuSans-Bold.ttf"
+            text_size 36
             text_xalign 0.5
             text_yalign 0.5
             text_text_align 0.5
 
             action Function(continue_game)
 
-        textbutton "Новая игра":
+        textbutton "{b}Новая игра{/b}":
             xalign 0.5
             xsize 380
             yminimum 70
 
-            background Frame(
-                Solid("#2A2433F5"),
-                20, 20, 20, 20
-            )
-
-            hover_background Frame(
-                Solid("#4A3C58FF"),
-                20, 20, 20, 20
-            )
-
+            text_font "BadScript-Regular.ttf"
             text_color "#FFFFFF"
             text_hover_color "#FFFFFF"
-            text_size 23
-            text_font "DejaVuSans-Bold.ttf"
+            text_size 36
             text_xalign 0.5
             text_yalign 0.5
             text_text_align 0.5
 
             action Show("new_game_confirm")
 
+
 ################################################################################
-## Экран игрового меню
+## ИСПРАВЛЕННЫЙ ЭКРАН ИГРОВОГО МЕНЮ
 ################################################################################
 
 screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
+
+    tag menu
 
     style_prefix "game_menu"
 
@@ -717,6 +569,8 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
             frame:
                 style "game_menu_navigation_frame"
+
+                use navigation
 
             frame:
                 style "game_menu_content_frame"
@@ -752,16 +606,11 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
                     transclude
 
-    use navigation
-
     textbutton _("Вернуться"):
         style "return_button"
         action Return()
 
     label title
-
-    if main_menu:
-        key "game_menu" action ShowMenu("main_menu")
 
 
 style game_menu_outer_frame is empty
@@ -816,7 +665,7 @@ style return_button:
 
 
 ################################################################################
-## Экран Об игре
+## Об игре
 ################################################################################
 
 screen about():
@@ -1015,7 +864,7 @@ style slot_button_text:
 
 
 ################################################################################
-## Экран настроек
+## Настройки
 ################################################################################
 
 screen preferences():
@@ -1199,7 +1048,7 @@ style slider_vbox:
 
 
 ################################################################################
-## Экран истории
+## История
 ################################################################################
 
 screen history():
@@ -1304,7 +1153,7 @@ style history_label_text:
 
 
 ################################################################################
-## Экран помощи
+## Помощь
 ################################################################################
 
 screen help():
@@ -1401,8 +1250,7 @@ screen keyboard_help():
         label "V"
         text _(
             "Включает поддерживаемый "
-            "{a=https://www.renpy.org/l/voicing}"
-            "синтезатор речи{/a}."
+            "{a=https://www.renpy.org/l/voicing}синтезатор речи{/a}."
         )
 
     hbox:
@@ -1426,7 +1274,7 @@ screen mouse_help():
 
     hbox:
         label _("Колёсико вверх")
-        text _("Откат назад по сюжету игры.")
+        text _("Откат назад по сюжету.")
 
     hbox:
         label _("Колёсико вниз")
@@ -1441,7 +1289,7 @@ screen gamepad_help():
 
     hbox:
         label _("Левый Триггер\nЛевый Бампер")
-        text _("Откат назад по сюжету игры.")
+        text _("Откат назад по сюжету.")
 
     hbox:
         label _("Правый бампер")
@@ -1463,29 +1311,6 @@ screen gamepad_help():
         action GamepadCalibrate()
 
 
-style help_button is gui_button
-style help_button_text is gui_button_text
-style help_label is gui_label
-style help_label_text is gui_label_text
-style help_text is gui_text
-
-style help_button:
-    properties gui.button_properties("help_button")
-    xmargin 12
-
-style help_button_text:
-    properties gui.text_properties("help_button")
-
-style help_label:
-    xsize 375
-    right_padding 30
-
-style help_label_text:
-    size gui.text_size
-    xalign 1.0
-    textalign 1.0
-
-
 ################################################################################
 ## Дополнительные экраны
 ################################################################################
@@ -1493,7 +1318,6 @@ style help_label_text:
 screen confirm(message, yes_action, no_action):
 
     modal True
-
     zorder 200
 
     style_prefix "confirm"
@@ -1618,9 +1442,6 @@ style skip_frame:
 
 style skip_text:
     size gui.notify_text_size
-
-style skip_triangle:
-    font "DejaVuSans.ttf"
 
 
 ################################################################################
@@ -1904,7 +1725,6 @@ define bubble.expand_area = {
     "top_left": (0, 22, 0, 0),
     "top_right": (0, 22, 0, 0),
     "thought": (0, 0, 0, 0),
-
 }
 
 
@@ -1917,8 +1737,9 @@ style pref_vbox:
     xsize 675
 
 
-## Мобильное быстрое меню
-## Убраны "Пропуск" и "Авто".
+style quick_menu:
+    variant "touch"
+
 
 screen quick_menu():
 
@@ -1995,7 +1816,6 @@ style bar:
         tile=gui.bar_tile
     )
 
-
 style vbar:
     variant "small"
     xsize gui.bar_size
@@ -2011,7 +1831,6 @@ style vbar:
         gui.vbar_borders,
         tile=gui.bar_tile
     )
-
 
 style scrollbar:
     variant "small"
@@ -2029,7 +1848,6 @@ style scrollbar:
         tile=gui.scrollbar_tile
     )
 
-
 style vscrollbar:
     variant "small"
     xsize gui.scrollbar_size
@@ -2046,7 +1864,6 @@ style vscrollbar:
         tile=gui.scrollbar_tile
     )
 
-
 style slider:
     variant "small"
     ysize gui.slider_size
@@ -2058,7 +1875,6 @@ style slider:
     )
 
     thumb "gui/phone/slider/horizontal_[prefix_]thumb.png"
-
 
 style vslider:
     variant "small"
@@ -2081,3 +1897,133 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+
+################################################################################
+## Дополнительные кнопки
+################################################################################
+
+screen exit_button():
+
+    if renpy.get_screen("drink_choice_screen") or renpy.get_screen("smoking_choice_screen"):
+
+        textbutton "{b}Выйти{/b}":
+            xalign 0.95
+            yalign 0.03
+
+            background None
+            hover_background None
+
+            text_color "#666666"
+            text_hover_color "#666666"
+            text_font "BadScript-Regular.ttf"
+
+            text_size 22
+
+            action NullAction()
+
+    else:
+
+        textbutton "{b}Выйти{/b}":
+            xalign 0.95
+            yalign 0.03
+
+            background None
+            hover_background None
+
+            text_color "#FFFFFF"
+            text_hover_color "#CCCCCC"
+            text_font "BadScript-Regular.ttf"
+
+            text_size 22
+
+            action MainMenu(confirm=False)
+
+
+screen drink_choice_screen():
+
+    modal True
+
+    $ choice_active = True
+
+    $ drink_choice = renpy.call_screen("drink_choice_screen")
+
+    $ choice_active = False
+
+    textbutton "{b}Назад{/b}":
+
+        xalign 0.05
+        yalign 0.03
+
+        background None
+        hover_background None
+
+        text_color "#FFFFFF"
+        text_hover_color "#CCCCCC"
+
+        text_size 22
+
+        action Return("back")
+
+
+    vbox:
+
+        xalign 0.5
+        yalign 0.65
+
+        spacing 20
+
+        textbutton "Взять в баре":
+
+            xsize 380
+            yminimum 70
+
+            background Frame(
+                Solid("#2A2433F5"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
+
+            action Return("bar")
+
+
+        textbutton "Взять в магазине возле бара":
+
+            xsize 380
+            yminimum 70
+
+            background Frame(
+                Solid("#2A2433F5"),
+                20, 20, 20, 20
+            )
+
+            hover_background Frame(
+                Solid("#4A3C58FF"),
+                20, 20, 20, 20
+            )
+
+            text_color "#FFFFFF"
+            text_hover_color "#FFFFFF"
+
+            text_size 23
+            text_font "DejaVuSans-Bold.ttf"
+
+            text_xalign 0.5
+            text_yalign 0.5
+            text_text_align 0.5
+
+            action Return("shop")
